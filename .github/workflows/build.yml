@@ -1,0 +1,21 @@
+name: Build and test
+on: [push, pull_request]
+jobs:
+  verify:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '21'
+          cache: maven
+      - run: mvn --batch-mode --no-transfer-progress --strict-checksums verify
+      - run: java -jar target/opencraft-0.1.0.jar --headless-smoke --data-dir target/smoke
+      - uses: actions/upload-artifact@v4
+        with:
+          name: OpenCraft-${{ matrix.os }}
+          path: target/opencraft-0.1.0.jar

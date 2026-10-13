@@ -22,3 +22,14 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+# Maven, IDEs and local runtime state
+target/
+.idea/
+*.iml
+.vscode/
+.opencraft-data/
+.DS_Store
+
+# Prebuilt package intentionally published for direct download
+!dist/opencraft-0.1.0.jar
